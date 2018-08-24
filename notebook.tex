@@ -1,0 +1,736 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Projeto 1 Paulo Chavarelli}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{Pergunta}\label{pergunta}
+
+O IDH(indice de desenvolvimento humano) é um indice calculado por 3
+fatores principais sendo eles:expectativa de vida,anos médios de estudos
+e renda per capita.Tendo em vista tal indice,é possivel que a densidade
+populacional e o índice de percepção da orrupção de um país interfira em
+seu IDH?
+
+    \section{Introdução}\label{introduuxe7uxe3o}
+
+O índice de desenvolvimento humano foi utilizado pela primeira vez em
+1990 pelo PNUD(Programa das Nações Unidas para o Desenvolvimento) pois
+era necessário um indicador que analisasse variáveis sociais,econômicas
+e acerca da saude pública e nao somente variaveis econômicas para
+apreciar o grau de desenvolvimentos de um país.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}96}]:} \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+         \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+         \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         \PY{k+kn}{import} \PY{n+nn}{math} \PY{k}{as} \PY{n+nn}{math}
+         \PY{k+kn}{from} \PY{n+nn}{scipy} \PY{k}{import} \PY{n}{stats}
+         \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+         \PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k}{as} \PY{n+nn}{sns}
+         \PY{k+kn}{from} \PY{n+nn}{pandas}\PY{n+nn}{.}\PY{n+nn}{plotting} \PY{k}{import} \PY{n}{scatter\PYZus{}matrix}
+\end{Verbatim}
+
+
+    \section{Lendo dados dos arquivos}\label{lendo-dados-dos-arquivos}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}97}]:} \PY{c+c1}{\PYZsh{}Leitura dos arquivos}
+         \PY{n}{IDH} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}excel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Hdi.xlsx}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{Corrupcao} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}excel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Corrupcao.xlsx}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{Population}\PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}excel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Population.xlsx}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}98}]:} \PY{c+c1}{\PYZsh{}Manter para um unico ano}
+         \PY{n}{IDh\PYZus{}2008} \PY{o}{=} \PY{n}{IDH}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{HDI}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+m+mi}{2008}\PY{p}{]}\PY{p}{]}
+         \PY{n}{Corrupcao\PYZus{}2008} \PY{o}{=} \PY{n}{Corrupcao}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Corrupcao}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+m+mi}{2008}\PY{p}{]}\PY{p}{]}
+         \PY{n}{Population\PYZus{}2008} \PY{o}{=} \PY{n}{Population}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Pop}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2008}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}99}]:} \PY{c+c1}{\PYZsh{}Mudança de indice}
+         \PY{n}{IDH\PYZus{}idx} \PY{o}{=} \PY{n}{IDh\PYZus{}2008}\PY{o}{.}\PY{n}{set\PYZus{}index}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{HDI}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{corrup\PYZus{}idx} \PY{o}{=} \PY{n}{Corrupcao\PYZus{}2008}\PY{o}{.}\PY{n}{set\PYZus{}index}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Corrupcao}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{Population\PYZus{}idx} \PY{o}{=} \PY{n}{Population\PYZus{}2008}\PY{o}{.}\PY{n}{set\PYZus{}index}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Pop}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \section{Renomear colunas}\label{renomear-colunas}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}100}]:} \PY{c+c1}{\PYZsh{}Renomear colunas}
+          \PY{n}{pt} \PY{o}{=} \PY{n}{IDH\PYZus{}idx}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{corrup\PYZus{}idx}\PY{p}{,} \PY{n}{how}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{inner}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{lsuffix}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZus{}IDH}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{rsuffix}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZus{}Corrupcao}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{pt}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{173}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}100}]:}                           2008\_IDH  2008\_Corrupcao
+          Afghanistan                  0.370             1.3
+          Albania                      0.733             3.2
+          Algeria                      0.686             2.8
+          Angola                       0.476             1.9
+          Argentina                    0.786             2.9
+          Armenia                      0.719             2.7
+          Australia                    0.924             8.7
+          Austria                      0.876             7.9
+          Azerbaijan                     NaN             2.3
+          Bahrain                      0.806             5.1
+          Bangladesh                   0.484             2.4
+          Barbados                     0.792             7.4
+          Belarus                      0.744             2.4
+          Belgium                      0.882             7.1
+          Benin                        0.419             2.9
+          Bhutan                         NaN             5.0
+          Bolivia                      0.651             2.7
+          Bosnia and Herzegovina       0.730             3.0
+          Botswana                     0.624             5.6
+          Brazil                       0.705             3.7
+          Brunei                       0.834             5.5
+          Bulgaria                     0.765             3.8
+          Burkina Faso                 0.321             3.6
+          Burundi                      0.301             1.8
+          Cambodia                     0.513             2.0
+          Cameroon                     0.466             2.2
+          Canada                       0.903             8.7
+          Cape Verde                   0.563             5.1
+          Central African Republic     0.327             2.0
+          Chad                         0.316             1.6
+          {\ldots}                            {\ldots}             {\ldots}
+          Sudan                        0.399             1.5
+          Suriname                     0.672             3.7
+          Swaziland                    0.512             3.6
+          Sweden                       0.900             9.2
+          Switzerland                  0.892             9.0
+          Syria                        0.629             2.6
+          Taiwan                         NaN             5.6
+          Tajikistan                   0.597             2.0
+          Tanzania                     0.448             2.6
+          Thailand                     0.672             3.4
+          Timor-Leste                  0.505             2.2
+          Togo                         0.426             2.8
+          Tonga                        0.700             3.0
+          Trinidad and Tobago          0.751             3.6
+          Tunisia                      0.688             4.2
+          Turkey                       0.691             4.4
+          Turkmenistan                 0.671             1.8
+          Uganda                       0.430             2.5
+          Ukraine                      0.729             2.2
+          United Arab Emirates         0.835             6.5
+          United Kingdom               0.860             7.7
+          United States                0.907             7.5
+          Uruguay                      0.769             6.7
+          Uzbekistan                   0.624             1.7
+          Vanuatu                        NaN             3.2
+          Venezuela                    0.730             1.9
+          Vietnam                      0.580             2.7
+          Yemen                        0.444             2.1
+          Zambia                       0.413             3.0
+          Zimbabwe                     0.338             2.2
+          
+          [173 rows x 2 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}101}]:} \PY{c+c1}{\PYZsh{}Adicionando a terceira coluna}
+          
+          \PY{n}{Junto} \PY{o}{=} \PY{n}{pt}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{Population\PYZus{}idx}\PY{p}{,} \PY{n}{how}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{inner}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}102}]:} \PY{c+c1}{\PYZsh{}\PYZsh{}Shape do frame}
+          \PY{n}{Junto}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}102}]:} (173, 3)
+\end{Verbatim}
+            
+    \section{Tudo em um único
+Dataframe}\label{tudo-em-um-uxfanico-dataframe}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}118}]:} \PY{c+c1}{\PYZsh{}Junto.loc[[\PYZsq{}Afghanistan\PYZsq{},\PYZsq{}Albania\PYZsq{},\PYZsq{}Argentina\PYZsq{},\PYZsq{}Armenia\PYZsq{},\PYZsq{}Belarus\PYZsq{},\PYZsq{}Bolivia\PYZsq{},\PYZsq{}Bosnia and Herzegovina\PYZsq{},\PYZsq{}Brazil\PYZsq{},\PYZsq{}Bulgaria\PYZsq{},\PYZsq{}Cambodia\PYZsq{},\PYZsq{}Cameroon\PYZsq{},\PYZsq{}Central African Republic\PYZsq{},\PYZsq{}Chile\PYZsq{},\PYZsq{}Colombia\PYZsq{},\PYZsq{}Costa Rica\PYZsq{},\PYZsq{}Croatia\PYZsq{},\PYZsq{}Ecuador\PYZsq{},\PYZsq{}Egypt\PYZsq{},\PYZsq{}Hungary\PYZsq{},\PYZsq{}Iraq\PYZsq{},\PYZsq{}Malaysia\PYZsq{},\PYZsq{}Mexico\PYZsq{},\PYZsq{}Montenegro\PYZsq{},\PYZsq{}Paraguay\PYZsq{},\PYZsq{}Peru\PYZsq{},\PYZsq{}Qatar\PYZsq{},\PYZsq{}Romania\PYZsq{},\PYZsq{}Russia\PYZsq{},\PYZsq{}Serbia\PYZsq{},\PYZsq{}Sri Lanka\PYZsq{},\PYZsq{}Tajikistan\PYZsq{},\PYZsq{}Tanzania\PYZsq{},\PYZsq{}Thailand\PYZsq{},\PYZsq{}Timor\PYZhy{}Leste\PYZsq{},\PYZsq{}Turkey\PYZsq{},\PYZsq{}Ukraine\PYZsq{},\PYZsq{}United States\PYZsq{},\PYZsq{}Uruguay\PYZsq{},\PYZsq{}New Zealand\PYZsq{}]].sort\PYZus{}values(\PYZsq{}2008\PYZus{}IDH\PYZsq{})}
+          \PY{n}{Junto}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{how}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{any}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{thresh}\PY{o}{=}\PY{k+kc}{None}\PY{p}{,}\PY{n}{subset}\PY{o}{=}\PY{k+kc}{None}\PY{p}{,}\PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+          \PY{n}{Junto}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2008\PYZus{}IDH}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{68}\PY{p}{)}
+          \PY{n}{Junto}\PY{o}{.}\PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2008\PYZus{}IDH}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2008\PYZus{}Corrupcao}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2008\PYZus{}IPC}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{Junto}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}118}]:}                           2008\_IDH  2008\_Corrupcao  2008\_IPC
+          Afghanistan                  0.370             1.3    45.761
+          Albania                      0.733             3.2   110.665
+          Algeria                      0.686             2.8    14.455
+          Angola                       0.476             1.9    14.469
+          Argentina                    0.786             2.9    14.284
+          Armenia                      0.719             2.7   103.325
+          Australia                    0.924             8.7     2.779
+          Austria                      0.876             7.9    99.475
+          Bahrain                      0.806             5.1  1516.367
+          Bangladesh                   0.484             2.4  1010.280
+          Barbados                     0.792             7.4   632.977
+          Belarus                      0.744             2.4    46.631
+          Belgium                      0.882             7.1   347.293
+          Benin                        0.419             2.9    74.195
+          Bolivia                      0.651             2.7     8.755
+          Bosnia and Herzegovina       0.730             3.0    73.718
+          Botswana                     0.624             5.6     3.360
+          Brazil                       0.705             3.7    22.497
+          Brunei                       0.834             5.5    66.729
+          Bulgaria                     0.765             3.8    68.445
+          Burkina Faso                 0.321             3.6    56.625
+          Burundi                      0.301             1.8   285.384
+          Cambodia                     0.513             2.0    76.353
+          Cameroon                     0.466             2.2    39.455
+          Canada                       0.903             8.7     3.343
+          Cape Verde                   0.563             5.1   120.846
+          Central African Republic     0.327             2.0     6.803
+          Chad                         0.316             1.6     8.297
+          Chile                        0.796             6.7    22.198
+          China                        0.665             3.6   138.406
+          {\ldots}                            {\ldots}             {\ldots}       {\ldots}
+          Spain                        0.871             6.1    89.223
+          Sri Lanka                    0.676             3.1   312.053
+          Sudan                        0.399             1.5    16.528
+          Suriname                     0.672             3.7     3.144
+          Swaziland                    0.512             3.6    66.249
+          Sweden                       0.900             9.2    20.528
+          Switzerland                  0.892             9.0   183.442
+          Syria                        0.629             2.6   106.352
+          Tajikistan                   0.597             2.0    46.760
+          Tanzania                     0.448             2.6    44.724
+          Thailand                     0.672             3.4   133.046
+          Timor-Leste                  0.505             2.2    72.593
+          Togo                         0.426             2.8   101.732
+          Tonga                        0.700             3.0   158.323
+          Trinidad and Tobago          0.751             3.6   259.462
+          Tunisia                      0.688             4.2    62.633
+          Turkey                       0.691             4.4    90.515
+          Turkmenistan                 0.671             1.8    10.077
+          Uganda                       0.430             2.5   130.018
+          Ukraine                      0.729             2.2    76.183
+          United Arab Emirates         0.835             6.5    74.242
+          United Kingdom               0.860             7.7   252.245
+          United States                0.907             7.5    31.674
+          Uruguay                      0.769             6.7    19.118
+          Uzbekistan                   0.624             1.7    59.928
+          Venezuela                    0.730             1.9    30.763
+          Vietnam                      0.580             2.7   259.134
+          Yemen                        0.444             2.1    42.856
+          Zambia                       0.413             3.0    16.449
+          Zimbabwe                     0.338             2.2    31.865
+          
+          [165 rows x 3 columns]
+\end{Verbatim}
+            
+    \section{Análise IDH}\label{anuxe1lise-idh}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}104}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{Junto}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2008\PYZus{}IDH}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+          \PY{n}{Junto}\PY{o}{.}\PY{n}{boxplot}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2008\PYZus{}IDH}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+count    165.000000
+mean       0.649594
+std        0.179619
+min        0.270000
+25\%        0.495000
+50\%        0.688000
+75\%        0.792000
+max        0.941000
+Name: 2008\_IDH, dtype: float64
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}104}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x1963f2c0518>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_14_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \section{Análise IPC}\label{anuxe1lise-ipc}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}120}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{Junto}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2008\PYZus{}Corrupcao}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+          \PY{n}{Junto}\PY{o}{.}\PY{n}{boxplot}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2008\PYZus{}Corrupcao}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+count    165.000000
+mean       4.027879
+std        2.120705
+min        1.300000
+25\%        2.500000
+50\%        3.300000
+75\%        5.100000
+max        9.400000
+Name: 2008\_Corrupcao, dtype: float64
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}120}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x19640ca3048>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}121}]:} \PY{n}{Junto}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2008\PYZus{}Corrupcao}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{plot}\PY{o}{.}\PY{n}{box}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}121}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x19640cdc710>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \section{Análise Densidade
+Populacional}\label{anuxe1lise-densidade-populacional}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}106}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{Junto}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2008\PYZus{}IPC}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+          \PY{n}{Junto}\PY{o}{.}\PY{n}{boxplot}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2008\PYZus{}IPC}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+count     165.000000
+mean      207.767133
+std       745.490378
+min         1.703000
+25\%        29.759000
+50\%        70.084000
+75\%       130.018000
+max      6987.139000
+Name: 2008\_IPC, dtype: float64
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}106}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x1963f3e2128>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_19_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \section{Gráfico do IDH pelo IPC}\label{gruxe1fico-do-idh-pelo-ipc}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}107}]:} \PY{c+c1}{\PYZsh{}Renomer coluna Corrupcao para indice de percepção da corrupção}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{Junto}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2008\PYZus{}IDH}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n}{Junto}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2008\PYZus{}Corrupcao}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+          \PY{n}{sns}\PY{o}{.}\PY{n}{regplot}\PY{p}{(}\PY{n}{Junto}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{2008\PYZus{}IDH}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,}\PY{n}{Junto}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{2008\PYZus{}Corrupcao}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{green}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{IDH}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Transparecia corrupcao}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}107}]:} <function matplotlib.pyplot.show>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_21_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \section{Gráfico do Idh pela Densidade populacional por
+km²}\label{gruxe1fico-do-idh-pela-densidade-populacional-por-km}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}108}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{Junto}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2008\PYZus{}IDH}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n}{Junto}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2008\PYZus{}IPC}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+          \PY{n}{sns}\PY{o}{.}\PY{n}{regplot}\PY{p}{(}\PY{n}{Junto}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{2008\PYZus{}IDH}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,}\PY{n}{Junto}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{2008\PYZus{}IPC}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{IDH}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Pop den}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}108}]:} <function matplotlib.pyplot.show>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_23_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \section{Gráfico do IPC pela densidade populacional em
+km²}\label{gruxe1fico-do-ipc-pela-densidade-populacional-em-km}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}109}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{Junto}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2008\PYZus{}Corrupcao}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n}{Junto}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2008\PYZus{}IPC}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+          \PY{n}{sns}\PY{o}{.}\PY{n}{regplot}\PY{p}{(}\PY{n}{Junto}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{2008\PYZus{}Corrupcao}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,}\PY{n}{Junto}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{2008\PYZus{}IPC}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{blue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Transparecia corrupcao}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Pop den}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}109}]:} <function matplotlib.pyplot.show>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_25_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \section{Média,desvio padão,mínimo,quartis e máximo do
+Dataframe}\label{muxe9diadesvio-paduxe3omuxednimoquartis-e-muxe1ximo-do-dataframe}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}110}]:} \PY{n}{Junto}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}fazer o describe e boxplot d cada um}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}110}]:}          2008\_IDH  2008\_Corrupcao     2008\_IPC
+          count  165.000000      165.000000   165.000000
+          mean     0.649594        4.027879   207.767133
+          std      0.179619        2.120705   745.490378
+          min      0.270000        1.300000     1.703000
+          25\%      0.495000        2.500000    29.759000
+          50\%      0.688000        3.300000    70.084000
+          75\%      0.792000        5.100000   130.018000
+          max      0.941000        9.400000  6987.139000
+\end{Verbatim}
+            
+    \section{Correlevancia dos dados
+analisados}\label{correlevancia-dos-dados-analisados}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}111}]:} \PY{n}{Junto}\PY{o}{.}\PY{n}{corr}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pearson}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}111}]:}                 2008\_IDH  2008\_Corrupcao  2008\_IPC
+          2008\_IDH        1.000000        0.740279  0.161697
+          2008\_Corrupcao  0.740279        1.000000  0.259717
+          2008\_IPC        0.161697        0.259717  1.000000
+\end{Verbatim}
+            
+    \section{Dataframe salvo em arquivo
+csv}\label{dataframe-salvo-em-arquivo-csv}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}112}]:} \PY{c+c1}{\PYZsh{}Salvar em arquivo csv}
+          \PY{n}{Junto}\PY{o}{.}\PY{n}{to\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Dataframe.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}t}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{encoding}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{utf\PYZhy{}8}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{index}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    \section{Análise}\label{anuxe1lise}
+
+    \section{Conclusão}\label{conclusuxe3o}
+
+    
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
